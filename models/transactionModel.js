@@ -14,4 +14,4 @@ let schema = mongoose.Schema({
 
 const transactionModel = mongoose.model("transaction", schema);
 
-export default transactionModel;
+export { transactionModel };
