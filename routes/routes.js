@@ -1,8 +1,7 @@
-const express = require("express");
-const transactionRouter = express.Router();
+import retrieveTransaction from "../services/transactionService.js";
+import { Router } from "express";
+const transactionRouter = Router();
 
-transactionRouter.get("/", async (req, res) => {
-  res.send("oier");
-});
+transactionRouter.get("/", retrieveTransaction);
 
-module.exports = transactionRouter;
+export default transactionRouter;

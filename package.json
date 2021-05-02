@@ -22,5 +22,6 @@
     "ignore": [
       "client/"
     ]
-  }
+  },
+  "type": "module"
 }
