@@ -42,7 +42,21 @@ const retrieveTransaction = async (req, res) => {
 
 const updateTransaction = async (req, res) => {
   try {
-    res.send("Hello, World!");
+    const { id } = req.params;
+    const data = req.body;
+    const yearMonth = `${data.year}-${formatDate(data.month)}`;
+    const yearMonthDay = `${data.year}-${formatDate(data.month)}-${formatDate(
+      data.day
+    )}`;
+
+    const transaction = { ...data, yearMonth, yearMonthDay };
+
+    const newTransaction = await transactionModel.findByIdAndUpdate(
+      { _id: id },
+      transaction,
+      { new: true }
+    );
+    res.send(newTransaction);
   } catch (error) {
     res.status(500).send(error.message);
   }
