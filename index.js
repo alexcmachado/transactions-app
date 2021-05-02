@@ -8,42 +8,19 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-/**
- * Faz a leitura do arquivo
- * ".env" por padrão
- */
 config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-/**
- * Vinculando o React ao app
- */
 app.use(express.static(join(__dirname, "client/build")));
 
-/**
- * Rota raiz
- */
-app.get("/api/", (_, response) => {
-  response.send({
-    message:
-      "Bem-vindo à API de lançamentos. Acesse /transaction e siga as orientações",
-  });
-});
-
-/**
- * Rotas principais do app
- */
 app.use("/api/transaction", routes);
 
-/**
- * Conexão ao Banco de Dados
- */
 const { DB_CONNECTION } = process.env;
 
-console.log("Iniciando conexão ao MongoDB...");
+console.log("Starting MongoDB connection...");
 mongoose.connect(
   DB_CONNECTION,
   {
@@ -52,8 +29,7 @@ mongoose.connect(
   },
   (err) => {
     if (err) {
-      let connectedToMongoDB = false;
-      console.error(`Erro na conexão ao MongoDB - ${err}`);
+      console.error(`Error on MongoDB connection - ${err}`);
     }
   }
 );
@@ -61,15 +37,10 @@ mongoose.connect(
 const { connection } = mongoose;
 
 connection.once("open", () => {
-  let connectedToMongoDB = true;
-  console.log("Conectado ao MongoDB");
+  console.log("Connected to MongoDB");
 
-  /**
-   * Definição de porta e
-   * inicialização do app
-   */
   const APP_PORT = process.env.PORT || 3001;
   app.listen(APP_PORT, () => {
-    console.log(`Servidor iniciado na porta ${APP_PORT}`);
+    console.log(`Server started on port ${APP_PORT}`);
   });
 });
