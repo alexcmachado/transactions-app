@@ -50,7 +50,14 @@ const updateTransaction = async (req, res) => {
 
 const deleteTransaction = async (req, res) => {
   try {
-    res.send("Hello, World!");
+    const { id } = req.params;
+    const transaction = await transactionModel.findByIdAndDelete({ _id: id });
+
+    if (!transaction) {
+      res.status(404).send("Transaction not found");
+    } else {
+      res.end();
+    }
   } catch (error) {
     res.status(500).send(error.message);
   }

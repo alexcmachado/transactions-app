@@ -11,8 +11,8 @@ transactionRouter.post("/", createTransaction);
 
 transactionRouter.get("/", retrieveTransaction);
 
-transactionRouter.put("/", updateTransaction);
+transactionRouter.patch("/:id", updateTransaction);
 
-transactionRouter.delete("/", deleteTransaction);
+transactionRouter.delete("/:id", deleteTransaction);
 
 export default transactionRouter;
