@@ -1,0 +1,9 @@
+.transaction {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 5px;
+  background-color: lightgreen;
+  border-radius: 5px;
+  margin: 5px;
+}
