@@ -4,6 +4,7 @@ import * as api from "./api/apiService.js";
 import Transactions from "./components/Transactions";
 import Stats from "./components/Stats";
 import Filter from "./components/Filter";
+import ModalTransaction from "./components/ModalTransaction";
 
 export default function App() {
   const [selectedMonth, setSelectedMonth] = useState("2021-05");
@@ -40,6 +41,7 @@ export default function App() {
       <Stats transactions={filteredTransactions} />
       <Filter filter={filter} onType={handleTyping} />
       <Transactions transactions={filteredTransactions} />
+      <ModalTransaction />
     </div>
   );
 }
