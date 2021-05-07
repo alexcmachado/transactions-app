@@ -41,6 +41,10 @@ export default function App() {
     setIsModalOpen(true);
   };
 
+  const handleClose = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div>
       <Header selectedMonth={selectedMonth} onMonthChange={handleMonthChange} />
@@ -50,7 +54,7 @@ export default function App() {
         <Filter filter={filter} onType={handleTyping} />
       </div>
       <Transactions transactions={filteredTransactions} />
-      {isModalOpen && <ModalTransaction />}
+      {isModalOpen && <ModalTransaction onClose={handleClose} />}
     </div>
   );
 }
