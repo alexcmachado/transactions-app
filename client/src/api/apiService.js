@@ -38,12 +38,32 @@ function _processPeriods() {
   });
 }
 
+function _prepareTransaction(transaction) {
+  const { description, category, _id: id, month, ...otherFields } = transaction;
+
+  return {
+    id,
+    description,
+    category,
+    month,
+    descriptionLowerCase: description.toLowerCase(),
+    categoryLowerCase: category.toLowerCase(),
+    monthDescription: MONTH_DESCRIPTIONS[month],
+    ...otherFields,
+  };
+}
+
 async function getTransactions(period) {
   const { id: yearMonth } = period;
   const { data } = await api.get(`${RESOURCE}?period=${yearMonth}`);
 
-  const transactions = data;
-  return transactions;
+  const frontEndTransactions = data.map((transaction) => {
+    return _prepareTransaction(transaction);
+  });
+
+  return frontEndTransactions.sort((a, b) =>
+    a.yearMonthDay.localeCompare(b.yearMonthDay)
+  );
 }
 
 async function getAllPeriods() {
