@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Stats({ transactions }) {
+export default function Summary({ transactions }) {
   const entries = transactions.length;
   const income = transactions
     .filter(({ type }) => {

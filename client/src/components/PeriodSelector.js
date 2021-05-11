@@ -1,6 +1,10 @@
 import React from "react";
 
-export default function Select({ allPeriods, selectedPeriod, onChangePeriod }) {
+export default function PeriodSelector({
+  allPeriods,
+  selectedPeriod,
+  onChangePeriod,
+}) {
   const handleSelectChange = (event) => {
     onChangePeriod(
       allPeriods.find((period) => period.id === event.target.value)

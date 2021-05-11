@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import * as api from "./api/apiService.js";
-import Select from "./components/Select";
+import PeriodSelector from "./components/PeriodSelector";
 import Transactions from "./components/Transactions";
-import Stats from "./components/Stats";
-import AddButton from "./components/AddButton";
-import Filter from "./components/Filter";
+import Summary from "./components/Summary";
+import Actions from "./components/Actions.js";
 import ModalTransaction from "./components/ModalTransaction";
 
 function getCurrentPeriod(allPeriods) {
@@ -77,19 +76,24 @@ export default function App() {
     <div>
       <div>
         <h3>Bootcamp Full Stack - Desafio Final</h3>
-        <span>Controle Financeiro Pessoal</span>
+        <h4>Controle Financeiro Pessoal</h4>
       </div>
-      <Select
+      <PeriodSelector
         allPeriods={allPeriods}
         selectedPeriod={currentPeriod}
         onChangePeriod={handlePeriodChange}
       />
-      <Stats transactions={filteredTransactions} />
-      <div>
-        <AddButton onClick={handleClick} />
-        <Filter filter={filterText} onType={handleTyping} />
-      </div>
+
+      <Summary transactions={filteredTransactions} />
+
+      <Actions
+        onClick={handleClick}
+        filter={filterText}
+        onType={handleTyping}
+      />
+
       <Transactions transactions={filteredTransactions} />
+
       {isModalOpen && <ModalTransaction onClose={handleClose} />}
     </div>
   );
