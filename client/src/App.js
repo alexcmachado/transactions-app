@@ -73,11 +73,11 @@ export default function App() {
   };
 
   return (
-    <div>
-      <div>
-        <h3>Bootcamp Full Stack - Desafio Final</h3>
-        <h4>Controle Financeiro Pessoal</h4>
+    <div className="container">
+      <div className="center">
+        <h3>Personal Finance</h3>
       </div>
+
       <PeriodSelector
         allPeriods={allPeriods}
         selectedPeriod={currentPeriod}
@@ -87,9 +87,9 @@ export default function App() {
       <Summary transactions={filteredTransactions} />
 
       <Actions
-        onClick={handleClick}
-        filter={filterText}
-        onType={handleTyping}
+        filterText={filterText}
+        onFilter={handleTyping}
+        onNewTransaction={handleClick}
       />
 
       <Transactions transactions={filteredTransactions} />

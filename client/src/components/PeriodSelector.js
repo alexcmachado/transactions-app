@@ -11,14 +11,17 @@ export default function PeriodSelector({
     );
   };
 
+  const { flexRowStyle, selectStyle } = styles;
+
   if (allPeriods.length === 0 || !selectedPeriod) {
     return null;
   }
 
   return (
-    <div>
+    <div className="center" style={flexRowStyle}>
       <select
         className="browser-default"
+        style={selectStyle}
         value={selectedPeriod.id}
         onChange={handleSelectChange}
       >
@@ -35,3 +38,17 @@ export default function PeriodSelector({
     </div>
   );
 }
+
+const styles = {
+  flexRowStyle: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "10px",
+  },
+
+  selectStyle: {
+    width: "150px",
+  },
+};
