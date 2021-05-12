@@ -4,23 +4,12 @@ import { formatMoney } from "../helpers/formatHelpers";
 const INCOME_COLOR = "#16a085";
 const EXPENSE_COLOR = "#c0392b";
 
-export default function Summary({ transactions }) {
-  const entries = transactions.length;
-  const income = transactions
-    .filter(({ type }) => {
-      return type === "+";
-    })
-    .reduce((acc, curr) => {
-      return acc + curr.value;
-    }, 0);
-  const expense = transactions
-    .filter(({ type }) => {
-      return type === "-";
-    })
-    .reduce((acc, curr) => {
-      return acc + curr.value;
-    }, 0);
-  const balance = income - expense;
+export default function Summary({ summary }) {
+  if (!summary) {
+    return null;
+  }
+
+  const { totalEntries, totalIncome, totalExpense, balance } = summary;
 
   const { containerStyle, incomeStyle, expenseStyle } = styles;
   const balanceStyle = balance >= 0 ? incomeStyle : expenseStyle;
@@ -29,19 +18,20 @@ export default function Summary({ transactions }) {
     <div style={containerStyle}>
       <span>
         <strong>Transactions: </strong>
-        {entries}
+        {totalEntries}
       </span>
 
       <span>
         <strong>
-          Total income: <span style={incomeStyle}>{formatMoney(income)}</span>
+          Total income:{" "}
+          <span style={incomeStyle}>{formatMoney(totalIncome)}</span>
         </strong>
       </span>
 
       <span>
         <strong>
           Total expense:{" "}
-          <span style={expenseStyle}>{formatMoney(expense)}</span>
+          <span style={expenseStyle}>{formatMoney(totalExpense)}</span>
         </strong>
       </span>
 

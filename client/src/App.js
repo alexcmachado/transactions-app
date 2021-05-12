@@ -23,6 +23,7 @@ export default function App() {
   const [currentPeriod, setCurrentPeriod] = useState(null);
   const [filterText, setFilterText] = useState("");
 
+  const [summary, setSummary] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -56,6 +57,31 @@ export default function App() {
     setFilteredTransactions(transactions);
   }, [filterText, currentTransactions]);
 
+  useEffect(() => {
+    const totalEntries = filteredTransactions.length;
+
+    const totalIncome = filteredTransactions
+      .filter(({ type }) => type === "+")
+      .reduce((acc, curr) => {
+        return acc + curr.value;
+      }, 0);
+
+    const totalExpense = filteredTransactions
+      .filter(({ type }) => type === "-")
+      .reduce((acc, curr) => {
+        return acc + curr.value;
+      }, 0);
+
+    const balance = totalIncome - totalExpense;
+
+    setSummary({
+      totalEntries,
+      totalIncome,
+      totalExpense,
+      balance,
+    });
+  }, [filteredTransactions]);
+
   const handlePeriodChange = (newPeriod) => {
     setCurrentPeriod(newPeriod);
   };
@@ -84,7 +110,7 @@ export default function App() {
         onChangePeriod={handlePeriodChange}
       />
 
-      <Summary transactions={filteredTransactions} />
+      <Summary summary={summary} />
 
       <Actions
         filterText={filterText}
