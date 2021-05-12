@@ -2,7 +2,8 @@ import React from "react";
 
 export default function Actions({ filterText, onFilter, onNewTransaction }) {
   const handleFilterTextChange = (event) => {
-    onFilter(event.currentTarget.value);
+    const userText = event.currentTarget.value;
+    onFilter(userText);
   };
 
   const handleButtonClick = () => {

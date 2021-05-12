@@ -50,5 +50,6 @@ const styles = {
 
   selectStyle: {
     width: "150px",
+    fontFamily: "monospace",
   },
 };

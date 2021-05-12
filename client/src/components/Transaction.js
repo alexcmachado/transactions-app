@@ -82,6 +82,7 @@ const styles = {
 
   dateStyle: {
     marginRight: "20px",
+    fontFamily: "monospace",
     fontWeight: "bold",
     fontSize: "1.5rem",
   },
@@ -111,6 +112,7 @@ const styles = {
 
   valueStyle: {
     textAlign: "right",
+    fontFamily: "monospace",
     fontSize: "1.8rem",
   },
 

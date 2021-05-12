@@ -58,10 +58,18 @@ export default function App() {
   }, [currentPeriod]);
 
   useEffect(() => {
-    const transactions = currentTransactions.filter(({ description }) => {
-      return description.includes(filterText);
-    });
-    setFilteredTransactions(transactions);
+    if (filterText.trim() === "") {
+      setFilteredTransactions(currentTransactions);
+    } else {
+      const lowerCaseFilter = filterText.toLowerCase();
+
+      const newFilteredTransactions = currentTransactions.filter(
+        ({ descriptionLowerCase }) => {
+          return descriptionLowerCase.includes(lowerCaseFilter);
+        }
+      );
+      setFilteredTransactions(newFilteredTransactions);
+    }
   }, [filterText, currentTransactions]);
 
   useEffect(() => {
@@ -93,7 +101,7 @@ export default function App() {
     setCurrentPeriod(newPeriod);
   };
 
-  const handleTyping = (text) => {
+  const handleFilter = (text) => {
     setFilterText(text);
   };
 
@@ -125,7 +133,7 @@ export default function App() {
 
           <Actions
             filterText={filterText}
-            onFilter={handleTyping}
+            onFilter={handleFilter}
             onNewTransaction={handleClick}
           />
 
