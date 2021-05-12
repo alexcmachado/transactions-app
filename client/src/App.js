@@ -5,6 +5,7 @@ import Transactions from "./components/Transactions";
 import Summary from "./components/Summary";
 import Actions from "./components/Actions.js";
 import ModalTransaction from "./components/ModalTransaction";
+import Spinner from "./components/Spinner.js";
 
 function getCurrentPeriod(allPeriods) {
   const date = new Date();
@@ -26,6 +27,8 @@ export default function App() {
   const [summary, setSummary] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
+
   useEffect(() => {
     const getAllPeriods = async () => {
       const data = await api.getAllPeriods();
@@ -43,8 +46,12 @@ export default function App() {
         return;
       }
 
+      setIsDataLoaded(false);
+
       const transactions = await api.getTransactions(currentPeriod);
       setCurrentTransactions(transactions);
+
+      setIsDataLoaded(true);
     };
 
     fetchData();
@@ -101,7 +108,7 @@ export default function App() {
   return (
     <div className="container">
       <div className="center">
-        <h3>Personal Finance</h3>
+        <h3>Personal Finances Manager</h3>
       </div>
 
       <PeriodSelector
@@ -110,17 +117,23 @@ export default function App() {
         onChangePeriod={handlePeriodChange}
       />
 
-      <Summary summary={summary} />
+      {!isDataLoaded && <Spinner>Loading...</Spinner>}
 
-      <Actions
-        filterText={filterText}
-        onFilter={handleTyping}
-        onNewTransaction={handleClick}
-      />
+      {isDataLoaded && (
+        <>
+          <Summary summary={summary} />
 
-      <Transactions transactions={filteredTransactions} />
+          <Actions
+            filterText={filterText}
+            onFilter={handleTyping}
+            onNewTransaction={handleClick}
+          />
 
-      {isModalOpen && <ModalTransaction onClose={handleClose} />}
+          <Transactions transactions={filteredTransactions} />
+
+          {isModalOpen && <ModalTransaction onClose={handleClose} />}
+        </>
+      )}
     </div>
   );
 }
