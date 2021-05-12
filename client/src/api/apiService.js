@@ -9,17 +9,17 @@ const GLOBAL_MONTHS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 const MONTH_DESCRIPTIONS = [
   "",
   "Jan",
-  "Fev",
+  "Feb",
   "Mar",
-  "Abr",
-  "Mai",
+  "Apr",
+  "May",
   "Jun",
   "Jul",
-  "Ago",
-  "Set",
-  "Out",
+  "Aug",
+  "Sep",
+  "Oct",
   "Nov",
-  "Dez",
+  "Dec",
 ];
 
 let allPeriods = [];

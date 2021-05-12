@@ -1,11 +1,15 @@
 import React from "react";
 import { formatMoney } from "../helpers/formatHelpers";
+import Action from "./Action";
 
 const INCOME_COLOR = "#A1F0DC";
 const EXPENSE_COLOR = "#F0A1A8";
 
 export default function Transaction({ transaction, differentDay }) {
   const { id, description, day, value, category } = transaction;
+
+  const handleActionClick = (type) => {};
+
   const {
     containerStyle,
     transactionStyle,
@@ -45,8 +49,8 @@ export default function Transaction({ transaction, differentDay }) {
       </div>
 
       <div style={actionsStyle}>
-        <button className="btn">Edit</button>
-        <button className="btn">Delete</button>
+        <Action type="edit" onActionClick={handleActionClick} />
+        <Action type="delete" onActionClick={handleActionClick} />
       </div>
     </div>
   );
