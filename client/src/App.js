@@ -19,13 +19,14 @@ function getCurrentPeriod(allPeriods) {
 export default function App() {
   const [currentTransactions, setCurrentTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   const [allPeriods, setAllPeriods] = useState([]);
   const [currentPeriod, setCurrentPeriod] = useState(null);
   const [filterText, setFilterText] = useState("");
 
   const [summary, setSummary] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
@@ -105,12 +106,26 @@ export default function App() {
     setFilterText(text);
   };
 
-  const handleClick = () => {
+  const handleInsertTransaction = () => {
+    setSelectedTransaction(null);
     setIsModalOpen(true);
   };
 
-  const handleClose = () => {
+  const handleModalClose = () => {
+    setSelectedTransaction(null);
     setIsModalOpen(false);
+  };
+
+  const handleModalSave = (newTransaction, mode) => {
+    setIsModalOpen(false);
+
+    if (mode === "insert") {
+      return;
+    }
+
+    if (mode === "edit") {
+      return;
+    }
   };
 
   return (
@@ -134,12 +149,19 @@ export default function App() {
           <Actions
             filterText={filterText}
             onFilter={handleFilter}
-            onNewTransaction={handleClick}
+            onNewTransaction={handleInsertTransaction}
           />
 
           <Transactions transactions={filteredTransactions} />
 
-          {isModalOpen && <ModalTransaction onClose={handleClose} />}
+          {isModalOpen && (
+            <ModalTransaction
+              isOpen={isModalOpen}
+              onClose={handleModalClose}
+              onSave={handleModalSave}
+              selectedTransaction={selectedTransaction}
+            />
+          )}
         </>
       )}
     </div>
