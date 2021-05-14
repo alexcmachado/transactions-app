@@ -26,7 +26,7 @@ export default function App() {
   const [filterText, setFilterText] = useState("");
 
   const [summary, setSummary] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
