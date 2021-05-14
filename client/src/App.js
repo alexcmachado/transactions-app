@@ -106,6 +106,17 @@ export default function App() {
     setFilterText(text);
   };
 
+  const handleDeleteTransaction = () => {};
+
+  const handleEditTransaction = (id) => {
+    const newSelectedTransaction = currentTransactions.find(
+      (transaction) => (transaction.id = id)
+    );
+
+    setSelectedTransaction(newSelectedTransaction);
+    setIsModalOpen(true);
+  };
+
   const handleInsertTransaction = () => {
     setSelectedTransaction(null);
     setIsModalOpen(true);
@@ -152,7 +163,11 @@ export default function App() {
             onNewTransaction={handleInsertTransaction}
           />
 
-          <Transactions transactions={filteredTransactions} />
+          <Transactions
+            transactions={filteredTransactions}
+            onDeleteTransaction={handleDeleteTransaction}
+            onEditTransaction={handleEditTransaction}
+          />
 
           {isModalOpen && (
             <ModalTransaction

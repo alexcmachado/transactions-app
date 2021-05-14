@@ -1,7 +1,19 @@
 import React from "react";
 import Transaction from "./Transaction";
 
-export default function Transactions({ transactions }) {
+export default function Transactions({
+  transactions,
+  onDeleteTransaction,
+  onEditTransaction,
+}) {
+  const handleDelete = (id) => {
+    onDeleteTransaction(id);
+  };
+
+  const handleEdit = (id) => {
+    onEditTransaction(id);
+  };
+
   let currentDay = 1;
 
   return (
@@ -20,6 +32,8 @@ export default function Transactions({ transactions }) {
           <Transaction
             key={id}
             transaction={transaction}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
             differentDay={differentDay}
           />
         );

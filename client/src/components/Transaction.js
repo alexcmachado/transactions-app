@@ -5,10 +5,25 @@ import Action from "./Action";
 const INCOME_COLOR = "#A1F0DC";
 const EXPENSE_COLOR = "#F0A1A8";
 
-export default function Transaction({ transaction, differentDay }) {
+export default function Transaction({
+  transaction,
+  onDelete,
+  onEdit,
+  differentDay,
+}) {
   const { id, description, day, value, category } = transaction;
 
-  const handleActionClick = (type) => {};
+  const handleActionClick = (type) => {
+    if (type === "edit") {
+      onEdit(id);
+      return;
+    }
+
+    if (type === "delete") {
+      onDelete(id);
+      return;
+    }
+  };
 
   const {
     containerStyle,
@@ -36,7 +51,6 @@ export default function Transaction({ transaction, differentDay }) {
         ...extraTransactionStyle,
         ...typeStyle,
       }}
-      // className={transaction.type === "+" ? css.income : css.expense}
     >
       <span style={dateStyle}>{date}</span>
 
