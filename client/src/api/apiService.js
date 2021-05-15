@@ -74,4 +74,9 @@ async function getAllPeriods() {
   return allPeriods;
 }
 
-export { getTransactions, getAllPeriods };
+async function deleteTransaction(id) {
+  await api.delete(`${RESOURCE}/${id}`);
+  return;
+}
+
+export { getTransactions, getAllPeriods, deleteTransaction };

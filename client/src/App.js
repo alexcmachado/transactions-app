@@ -106,7 +106,15 @@ export default function App() {
     setFilterText(text);
   };
 
-  const handleDeleteTransaction = () => {};
+  const handleDeleteTransaction = async (id) => {
+    await api.deleteTransaction(id);
+
+    const newTransactions = currentTransactions.filter(
+      (transaction) => transaction.id !== id
+    );
+
+    setCurrentTransactions(newTransactions);
+  };
 
   const handleEditTransaction = (id) => {
     const newSelectedTransaction = currentTransactions.find(
