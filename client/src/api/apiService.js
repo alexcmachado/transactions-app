@@ -95,6 +95,15 @@ function getCompleteTransaction(transaction) {
   return completeTransaction;
 }
 
+async function updateTransaction(transaction) {
+  const { id } = transaction;
+  const completeTransaction = getCompleteTransaction(transaction);
+  await api.patch(`${RESOURCE}/${id}`, completeTransaction);
+
+  const updatedTransaction = _prepareTransaction(completeTransaction);
+  return updatedTransaction;
+}
+
 async function postTransaction(transaction) {
   const completeTransaction = getCompleteTransaction(transaction);
   const { data } = await api.post(RESOURCE, completeTransaction);
@@ -103,4 +112,10 @@ async function postTransaction(transaction) {
   return newTransaction;
 }
 
-export { getTransactions, getAllPeriods, deleteTransaction, postTransaction };
+export {
+  getTransactions,
+  getAllPeriods,
+  deleteTransaction,
+  postTransaction,
+  updateTransaction,
+};

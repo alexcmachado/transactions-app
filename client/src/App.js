@@ -155,6 +155,16 @@ export default function App() {
     }
 
     if (mode === "edit") {
+      const updatedTransaction = await api.updateTransaction(newTransaction);
+      const newTransactions = [...currentTransactions];
+
+      const index = newTransactions.findIndex(
+        (transaction) => transaction.id === newTransaction.id
+      );
+
+      newTransactions[index] = updatedTransaction;
+      setCurrentTransactions(newTransactions);
+
       return;
     }
   };
