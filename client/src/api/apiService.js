@@ -79,4 +79,28 @@ async function deleteTransaction(id) {
   return;
 }
 
-export { getTransactions, getAllPeriods, deleteTransaction };
+function getCompleteTransaction(transaction) {
+  const { yearMonthDay } = transaction;
+  const year = +yearMonthDay.substring(0, 4);
+  const month = +yearMonthDay.substring(5, 7);
+  const day = +yearMonthDay.substring(8, 10);
+
+  const completeTransaction = {
+    ...transaction,
+    year,
+    month,
+    day,
+  };
+
+  return completeTransaction;
+}
+
+async function postTransaction(transaction) {
+  const completeTransaction = getCompleteTransaction(transaction);
+  const { data } = await api.post(RESOURCE, completeTransaction);
+
+  const newTransaction = _prepareTransaction(data);
+  return newTransaction;
+}
+
+export { getTransactions, getAllPeriods, deleteTransaction, postTransaction };

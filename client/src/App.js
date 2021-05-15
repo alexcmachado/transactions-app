@@ -7,6 +7,12 @@ import Actions from "./components/Actions.js";
 import ModalTransaction from "./components/ModalTransaction";
 import Spinner from "./components/Spinner.js";
 
+function sortTransactions(transactions) {
+  return transactions.sort((a, b) =>
+    a.yearMonthDay.localeCompare(b.yearMonthDay)
+  );
+}
+
 function getCurrentPeriod(allPeriods) {
   const date = new Date();
   const year = date.getFullYear();
@@ -135,10 +141,16 @@ export default function App() {
     setIsModalOpen(false);
   };
 
-  const handleModalSave = (newTransaction, mode) => {
+  const handleModalSave = async (newTransaction, mode) => {
     setIsModalOpen(false);
 
     if (mode === "insert") {
+      const postedTransaction = await api.postTransaction(newTransaction);
+
+      let newTransactions = [...currentTransactions, postedTransaction];
+      newTransactions = sortTransactions(newTransactions);
+      setCurrentTransactions(newTransactions);
+      setSelectedTransaction(null);
       return;
     }
 
