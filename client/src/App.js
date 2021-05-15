@@ -142,7 +142,7 @@ export default function App() {
   return (
     <div className="container">
       <div className="center">
-        <h3>Personal Finances Manager</h3>
+        <h3>Transactions Manager</h3>
       </div>
 
       <PeriodSelector
